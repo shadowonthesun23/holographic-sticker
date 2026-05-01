@@ -1,49 +1,65 @@
-# Holographic Sticker
+# Holographic Sticker — Fork by Antonello
 
-A React component library for creating stunning holographic sticker effects. Interactive, customizable, and performant.
+Fork personale di [LAWTED/holographic-sticker](https://github.com/LAWTED/holographic-sticker).
 
-## Installation
+Una React component library per creare sticker olografici interattivi al passaggio del mouse.
+
+## Installazione nel tuo progetto
 
 ```bash
 npm install holographic-sticker
 ```
 
-## Features
+## Avviare l'editor locale
 
-- 🌈 **Holographic Effects** - Create stunning holographic sticker animations
-- 🎮 **Interactive Controls** - Built-in controls for customizing effects
-- 🗺️ **Minimap** - Visual minimap for navigation
-- 🎨 **Customizable Patterns** - Support for custom textures and masks
-- ⚡ **Performance Optimized** - Smooth animations with efficient rendering
-- 📱 **Responsive** - Works across all device sizes
+```bash
+npm install
+npm run dev
+# → http://localhost:3000/sticker-editor
+```
 
-## Quick Start
+## Aggiungere le tue immagini
+
+1. Metti le tue immagini in `/public/` (es. `/public/mia-immagine.png`)
+2. Nell'editor, modifica il layer **Base Image** → campo `src` → `/mia-immagine.png`
+3. Fai lo stesso per `maskUrl` in **Holographic Pattern** per far risplendere solo il soggetto
+
+## Template disponibili
+
+- **Lightning Sticker** — effetto fulmine con maschera e rifrazione
+- **Lawted Sticker** — card personale con parallax e watermark
+- **Antonello Sticker** — template base personalizzabile, pronto per le tue immagini
+
+## Usare uno sticker nel tuo progetto Next.js
 
 ```tsx
+// components/HoloSticker.tsx
+"use client";
 import HolographicSticker from "holographic-sticker";
 
-export default function MySticker() {
+export default function HoloSticker() {
   return (
     <HolographicSticker.Root>
-      <HolographicSticker.Controls />
-      <HolographicSticker.Minimap />
       <HolographicSticker.Scene>
-        <HolographicSticker.Card className="border border-white rounded-2xl">
+        <HolographicSticker.Card>
           <HolographicSticker.ImageLayer
-            src="/your-image.png"
+            src="/tua-immagine.png"
             alt="Sticker"
             objectFit="contain"
+            parallax
           />
           <HolographicSticker.Pattern
-            maskUrl="/your-mask.png"
+            maskUrl="/tua-immagine.png"
             maskSize="contain"
             textureUrl="https://assets.codepen.io/605876/figma-texture.png"
-            textureSize="6cqi"
+            textureSize="5cqi"
             mixBlendMode="hard-light"
-            opacity={0.7}
+            opacity={0.6}
           >
-            <HolographicSticker.Refraction intensity={2} />
+            <HolographicSticker.Refraction intensity={1.5} />
           </HolographicSticker.Pattern>
+          <HolographicSticker.Spotlight intensity={0.8} />
+          <HolographicSticker.Glare />
         </HolographicSticker.Card>
       </HolographicSticker.Scene>
     </HolographicSticker.Root>
@@ -51,31 +67,9 @@ export default function MySticker() {
 }
 ```
 
-## Development
-
-First, run the development server:
-
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-```
-
-Open [http://localhost:3000](http://localhost:3000) to see the examples and documentation.
-
-## Examples
-
-The project includes several example implementations:
-
-- **Lightning Sticker** - Lightning holographic effect with mask patterns and refraction
-- **OG Sticker** - Inspired by @jh3yy's original holographic card design
-- **Lawted Sticker** - Custom sticker implementation
-
 ## Credits
 
-This project is inspired by [@jh3yy](https://x.com/jh3yy)'s incredible [holographic card design](https://codepen.io/jh3y/pen/EaVNNxa). All inspiration and foundation code comes from this original work.
+Progetto originale di [@LAWTED](https://github.com/LAWTED), ispirato al design di [@jh3yy](https://x.com/jh3yy).
 
 ## Built With
 
@@ -83,9 +77,3 @@ This project is inspired by [@jh3yy](https://x.com/jh3yy)'s incredible [holograp
 - Next.js 15
 - TypeScript
 - Tailwind CSS
-- CSS Animations
-
-## Links
-
-- [GitHub Repository](https://github.com/LAWTED/holographic-sticker)
-- [npm Package](https://www.npmjs.com/package/holographic-sticker)

@@ -126,5 +126,59 @@ export const stickerConfigs: Record<string, StickerConfig> = {
         editableProps: []
       }
     ]
+  },
+  'antonello-sticker': {
+    id: 'antonello-sticker',
+    name: 'Antonello Sticker',
+    description: 'Custom holographic sticker — replace images in /public to personalizzare.',
+    layers: [
+      {
+        id: 'base-image',
+        type: 'ImageLayer',
+        name: 'Base Image',
+        visible: true,
+        props: {
+          src: '/light.png',
+          alt: 'Base',
+          objectFit: 'cover',
+          parallax: true
+        },
+        editableProps: ['src', 'alt', 'objectFit', 'parallax']
+      },
+      {
+        id: 'pattern',
+        type: 'Pattern',
+        name: 'Holographic Pattern',
+        visible: true,
+        props: {
+          maskUrl: '/light.png',
+          maskSize: 'contain',
+          texture: 'https://assets.codepen.io/605876/figma-texture.png',
+          textureSize: '5cqi',
+          mixBlendMode: 'hard-light',
+          opacity: 0.6,
+          intensity: 1.5
+        },
+        editableProps: ['maskUrl', 'texture', 'textureSize', 'opacity', 'intensity', 'mixBlendMode']
+      },
+      {
+        id: 'spotlight',
+        type: 'Spotlight',
+        name: 'Spotlight',
+        visible: true,
+        props: {
+          intensity: 0.8
+        },
+        editableProps: ['intensity']
+      },
+      {
+        id: 'glare',
+        type: 'Glare',
+        name: 'Glare',
+        visible: true,
+        props: {},
+        editableProps: []
+      }
+    ]
   }
 };
