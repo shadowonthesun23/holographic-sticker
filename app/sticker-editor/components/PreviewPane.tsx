@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import HolographicSticker from "holographic-sticker";
 import { StickerConfig } from "../types/editor";
 
@@ -24,6 +25,19 @@ export default function PreviewPane({
   showMinimap,
   showControls,
 }: PreviewPaneProps) {
+  const [zoom, setZoom] = useState(1);
+
+  const zoomLevels = [0.5, 0.75, 1, 1.25, 1.5, 2, 2.5, 3];
+  const zoomIn = () => {
+    const next = zoomLevels.find((z) => z > zoom);
+    if (next) setZoom(next);
+  };
+  const zoomOut = () => {
+    const prev = [...zoomLevels].reverse().find((z) => z < zoom);
+    if (prev) setZoom(prev);
+  };
+  const resetZoom = () => setZoom(1);
+
   const renderSticker = () => {
     if (!stickerConfig) return null;
 
@@ -98,19 +112,49 @@ export default function PreviewPane({
             </button>
           </div>
 
+          {/* Zoom controls */}
+          <div className="flex items-center gap-2">
+            <button
+              onClick={zoomOut}
+              disabled={zoom <= zoomLevels[0]}
+              className="w-7 h-7 bg-neutral-800 hover:bg-neutral-700 rounded flex items-center justify-center transition-colors disabled:opacity-30 disabled:cursor-not-allowed text-white text-lg leading-none"
+              title="Zoom out"
+            >
+              −
+            </button>
+            <button
+              onClick={resetZoom}
+              className="min-w-[52px] h-7 bg-neutral-800 hover:bg-neutral-700 rounded px-2 text-xs text-white transition-colors"
+              title="Reset zoom"
+            >
+              {Math.round(zoom * 100)}%
+            </button>
+            <button
+              onClick={zoomIn}
+              disabled={zoom >= zoomLevels[zoomLevels.length - 1]}
+              className="w-7 h-7 bg-neutral-800 hover:bg-neutral-700 rounded flex items-center justify-center transition-colors disabled:opacity-30 disabled:cursor-not-allowed text-white text-lg leading-none"
+              title="Zoom in"
+            >
+              +
+            </button>
+          </div>
+
           <div className="text-sm text-neutral-500">Live Preview</div>
         </div>
       </div>
 
-      <div className="flex-1 flex items-center justify-center p-8">
+      <div className="flex-1 flex items-center justify-center p-8 overflow-hidden">
         <div
-          className="relative"
           style={{
             width: "600px",
             height: "450px",
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
+            transform: `scale(${zoom})`,
+            transformOrigin: "center center",
+            transition: "transform 0.2s ease",
+            flexShrink: 0,
           }}
         >
           {renderSticker()}
